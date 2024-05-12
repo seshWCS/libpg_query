@@ -891,7 +891,7 @@ list_free_private(List *list, bool deep)
  * On return, the argument to this function has been freed, so the
  * caller would be wise to set it to NIL for safety's sake.
  */
-void
+__attribute__((__weak__)) void
 list_free(List *list)
 {
 	list_free_private(list, false);

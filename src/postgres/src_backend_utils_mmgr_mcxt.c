@@ -1164,7 +1164,7 @@ MemoryContextAllocExtended(MemoryContext context, Size size, int flags)
  */
 
 
-void *
+__attribute__((__weak__)) void *
 palloc(Size size)
 {
 	/* duplicates MemoryContextAlloc to avoid increased overhead */
@@ -1195,7 +1195,7 @@ palloc(Size size)
 	return ret;
 }
 
-void *
+__attribute__((__weak__)) void *
 palloc0(Size size)
 {
 	/* duplicates MemoryContextAllocZero to avoid increased overhead */
@@ -1353,7 +1353,7 @@ MemoryContextAllocAligned(MemoryContext context,
  * pfree
  *		Release an allocated chunk.
  */
-void
+__attribute__((__weak__)) void
 pfree(void *pointer)
 {
 #ifdef USE_VALGRIND
@@ -1373,7 +1373,7 @@ pfree(void *pointer)
  * repalloc
  *		Adjust the size of a previously allocated chunk.
  */
-void *
+__attribute__((__weak__)) void *
 repalloc(void *pointer, Size size)
 {
 #ifdef USE_VALGRIND
@@ -1460,7 +1460,7 @@ MemoryContextStrdup(MemoryContext context, const char *string)
 	return nstr;
 }
 
-char *
+__attribute__((__weak__)) char *
 pstrdup(const char *in)
 {
 	return MemoryContextStrdup(CurrentMemoryContext, in);
