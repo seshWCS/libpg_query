@@ -39,7 +39,7 @@
 /*
  * Case-independent comparison of two null-terminated strings.
  */
-int
+__attribute__((__weak__)) int
 pg_strcasecmp(const char *s1, const char *s2)
 {
 	for (;;)
@@ -81,7 +81,7 @@ pg_strcasecmp(const char *s1, const char *s2)
  * that aren't lower case letters.  Note however that the whole thing is
  * a bit bogus for multibyte character sets.
  */
-unsigned char
+__attribute__((__weak__)) unsigned char
 pg_toupper(unsigned char ch)
 {
 	if (ch >= 'a' && ch <= 'z')

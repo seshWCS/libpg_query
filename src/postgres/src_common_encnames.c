@@ -55,7 +55,7 @@ typedef struct pg_encname
 #define DEF_ENC2NAME(name, codepage) { #name, PG_##name, codepage }
 #endif
 
-const pg_enc2name pg_enc2name_tbl[] =
+__attribute__((__weak__)) const pg_enc2name pg_enc2name_tbl[] =
 {
 	DEF_ENC2NAME(SQL_ASCII, 0),
 	DEF_ENC2NAME(EUC_JP, 20932),

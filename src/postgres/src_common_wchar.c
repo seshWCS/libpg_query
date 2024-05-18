@@ -563,7 +563,7 @@ pg_utf2wchar_with_len(const unsigned char *from, pg_wchar *to, int len)
  * Map a Unicode code point to UTF-8.  utf8string must have 4 bytes of
  * space allocated.
  */
-unsigned char *
+__attribute__((__weak__)) unsigned char *
 unicode_to_utf8(pg_wchar c, unsigned char *utf8string)
 {
 	if (c <= 0x7F)
@@ -629,7 +629,7 @@ pg_wchar2utf_with_len(const pg_wchar *from, unsigned char *to, int len)
  * pg_utf2wchar_with_len(), utf8_to_unicode(), pg_utf8_islegal(), and perhaps
  * other places would need to be fixed to change this.
  */
-int
+__attribute__((__weak__)) int
 pg_utf_mblen(const unsigned char *s)
 {
 	int			len;
@@ -759,7 +759,7 @@ ucs_wcwidth(pg_wchar ucs)
  *
  * No error checks here, c must point to a long-enough string.
  */
-pg_wchar
+__attribute__((__weak__)) pg_wchar
 utf8_to_unicode(const unsigned char *c)
 {
 	if ((*c & 0x80) == 0)
@@ -912,7 +912,7 @@ pg_wchar2mule_with_len(const pg_wchar *from, unsigned char *to, int len)
 }
 
 /* exported for direct use by conv.c */
-int
+__attribute__((__weak__)) int
 pg_mule_mblen(const unsigned char *s)
 {
 	int			len;
@@ -2093,7 +2093,7 @@ pg_utf8_verifystr(const unsigned char *s, int len)
  * length is assumed to have been obtained by pg_utf_mblen(), and the
  * caller must have checked that that many bytes are present in the buffer.
  */
-bool
+__attribute__((__weak__)) bool
 pg_utf8_islegal(const unsigned char *source, int length)
 {
 	unsigned char a;
@@ -2157,7 +2157,7 @@ pg_utf8_islegal(const unsigned char *source, int length)
  * XXX must be sorted by the same order as enum pg_enc (in mb/pg_wchar.h)
  *-------------------------------------------------------------------
  */
-const pg_wchar_tbl pg_wchar_table[] = {
+__attribute__((__weak__)) const pg_wchar_tbl pg_wchar_table[] = {
 	{pg_ascii2wchar_with_len, pg_wchar2single_with_len, pg_ascii_mblen, pg_ascii_dsplen, pg_ascii_verifychar, pg_ascii_verifystr, 1},	/* PG_SQL_ASCII */
 	{pg_eucjp2wchar_with_len, pg_wchar2euc_with_len, pg_eucjp_mblen, pg_eucjp_dsplen, pg_eucjp_verifychar, pg_eucjp_verifystr, 3},	/* PG_EUC_JP */
 	{pg_euccn2wchar_with_len, pg_wchar2euc_with_len, pg_euccn_mblen, pg_euccn_dsplen, pg_euccn_verifychar, pg_euccn_verifystr, 2},	/* PG_EUC_CN */
@@ -2210,7 +2210,7 @@ const pg_wchar_tbl pg_wchar_table[] = {
  * string length.  Callers that are not prepared to deal with that
  * should use pg_encoding_mblen_bounded() instead.
  */
-int
+__attribute__((__weak__)) int
 pg_encoding_mblen(int encoding, const char *mbstr)
 {
 	return (PG_VALID_ENCODING(encoding) ?
@@ -2246,7 +2246,7 @@ pg_encoding_mblen(int encoding, const char *mbstr)
 /*
  * fetch maximum length of a given encoding
  */
-int
+__attribute__((__weak__)) int
 pg_encoding_max_length(int encoding)
 {
 	Assert(PG_VALID_ENCODING(encoding));
